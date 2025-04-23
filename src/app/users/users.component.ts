@@ -7,6 +7,8 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { CommonModule } from '@angular/common';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import { UserFormComponent } from './user-form/user-form.component';
 
 
 @Component({
@@ -16,7 +18,9 @@ import { CommonModule } from '@angular/common';
   imports: [ MatTableModule,
     MatCardModule, 
     MatIconModule,
+    UserFormComponent,
     MatProgressSpinnerModule,
+    MatSidenavModule,
     CommonModule,
   ],
   styleUrls: ['./users.component.scss']

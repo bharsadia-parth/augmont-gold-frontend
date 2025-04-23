@@ -31,3 +31,13 @@
     </mat-table>
   </mat-card>
   
+
+  <mat-drawer-container class="example-container" style="height: 100%; width: 100%;" >
+    <mat-drawer #drawer style="width: 50%;" mode="side"  position="end">
+        <app-user-form></app-user-form>
+    </mat-drawer>
+    <mat-drawer-content style="width: 100%;height: auto;">
+
+      <button mat-raised-button (click)="drawer.toggle()">Create User</button>
+    </mat-drawer-content>
+  </mat-drawer-container>
