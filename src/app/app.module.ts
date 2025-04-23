@@ -7,9 +7,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 const routes: Routes = [
-  { path: '', redirectTo: 'user', pathMatch: 'full' }, 
+  // { path: '', redirectTo: 'user', pathMatch: 'full' }, 
   {path: "user", loadComponent: () => import("./users/users.component").then(c => c.UsersComponent)},
-  { path: '**', redirectTo: 'user', pathMatch: 'full' } 
+  {path: "product", loadComponent: () => import("./product/product.component").then(c => c.ProductComponent)},
+  // { path: '**', redirectTo: 'user', pathMatch: 'full' } 
 
 ];
 

@@ -1,0 +1,45 @@
+<mat-card>
+    <mat-card-title>Products</mat-card-title>
+    <button (click)="bulkDowload()" style="padding: 10px 30px ; background-color: blueviolet; color: white; border: none; border-radius: 5px;margin: 20px 0px;">Download CSV</button>
+    <mat-table [dataSource]="products" class="mat-elevation-z8">
+  
+      <!-- ID Column -->
+      <ng-container matColumnDef="id">
+        <mat-header-cell *matHeaderCellDef> ID </mat-header-cell>
+        <mat-cell *matCellDef="let product"> {{product.id}} </mat-cell>
+      </ng-container>
+  
+     
+      <!-- Name Column -->
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+        <mat-cell *matCellDef="let product"> {{product.name}} </mat-cell>
+      </ng-container>
+
+      <!-- Price Column -->
+      <ng-container matColumnDef="price">
+        <mat-header-cell *matHeaderCellDef> price </mat-header-cell>
+        <mat-cell *matCellDef="let product"> {{product.price}} </mat-cell>
+      </ng-container>
+
+        <!-- Price Column -->
+        <ng-container matColumnDef="image">
+            <mat-header-cell *matHeaderCellDef> image </mat-header-cell>
+            <mat-cell *matCellDef="let product"> {{product.image}} </mat-cell>
+          </ng-container>
+
+        <!-- action Column -->
+        <ng-container matColumnDef="action">
+            <mat-header-cell *matHeaderCellDef> Action </mat-header-cell>
+            <mat-cell *matCellDef="let product"> 
+                <mat-icon (click)="deleteUser(product.id)" *ngIf="!loader">delete_outlined</mat-icon> 
+                <!-- <mat-spinner color="primary"></mat-spinner> -->
+            </mat-cell>
+          </ng-container>
+  
+     
+  
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+  </mat-card>
