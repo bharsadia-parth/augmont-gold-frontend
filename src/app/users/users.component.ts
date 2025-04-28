@@ -9,6 +9,8 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { CommonModule } from '@angular/common';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import { UserFormComponent } from './user-form/user-form.component';
+import { forkJoin } from 'rxjs/internal/observable/forkJoin';
+import { AppLauncherService } from 'src/services/app-launcher.service';
 
 
 @Component({
@@ -28,7 +30,8 @@ import { UserFormComponent } from './user-form/user-form.component';
 export class UsersComponent implements OnInit {
 
   constructor(
-    private _userService: UserService
+    private _userService: UserService,
+    private _appLauncherService: AppLauncherService,
   ) { }
 
   users: User[] = [];
@@ -36,22 +39,35 @@ export class UsersComponent implements OnInit {
   loader: boolean = false
 
   ngOnInit(): void {
-    this.getUserData();
+    // this.getUserData();
+    this._appLauncherService.openAugmontApp()
+  }
+  
+   hello(){
+
+
   }
 
   getUserData(){
-    this._userService.getList().subscribe({
-      next: (response: HttpResponse<{data: User[]}>) => {
-        console.log(response.body.data)
-        this.users = response.body.data
-      },
-      error: (error: HttpErrorResponse) => {
-        console.log(error)
+    forkJoin({api1: this._userService.getList(), api2: this._userService.getList2()}).subscribe({
+      next: (val) => {
+        val.api2
       }
     })
+    // ._userService.getList().subscribe({
+    //   next: (response: HttpResponse<{data: User[]}>) => {
+    //     console.log(response.body.data)
+    //     this.users = response.body.data
+    //   },
+    //   error: (error: HttpErrorResponse) => {
+    //     console.log(error)
+    //   }
+    // })
+
+    
   }
 
-  deleteUser(id: number){
+  delethisteUser(id: number){
     this.loader = true;
     this._userService.deleteUser(id).subscribe({
       next: (response: HttpResponse<{data: User[]}>) => {

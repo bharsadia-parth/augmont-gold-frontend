@@ -12,9 +12,19 @@ export class UserService {
     private _http: HttpClient
   ) { }
 
+
+
   path: string = "user";
 
+  get(url){
+    return this._http.get(url);
+  }
+
   getList(){
+    return this._http.get<{data: User[]}>(environment.host + this.path, {observe: 'response'});
+  }
+
+  getList2(){
     return this._http.get<{data: User[]}>(environment.host + this.path, {observe: 'response'});
   }
 
