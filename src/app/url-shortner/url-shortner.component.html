@@ -1,0 +1,127 @@
+<div class="flex bg-[#efefef] py-18 justify-center items-center min-h-screen">
+  <div class="w-2/5 bg-white px-10 rounded-xl py-12">
+    <h1 *ngIf="form.value.id">Update Deeplink</h1>
+    <h1 *ngIf="!form.value.id">Create Deeplink</h1>
+    <form [formGroup]="form">
+      <!-- Path start -->
+      <mat-form-field class="w-full" appearance="outline">
+        <mat-label>Path</mat-label>
+        <input
+          type="text"
+          placeholder="/path/to/desired/screen"
+          matInput
+          [formControlName]="'path'"
+        />
+      </mat-form-field>
+      <!-- Path ends -->
+
+      <!-- Identifier start -->
+      <mat-form-field class="w-full" appearance="outline">
+        <mat-label>Identifier</mat-label>
+        <input
+          type="text"
+          placeholder="Digi Gold - One time"
+          matInput
+          [formControlName]="'identifier'"
+        />
+      </mat-form-field>
+
+      <!-- Identifier ends -->
+
+      <!-- Description start -->
+
+      <mat-form-field class="w-full" appearance="outline">
+        <mat-label>Description</mat-label>
+        <input
+          type="text"
+          placeholder="This deeplink navigates user to..."
+          matInput
+          [formControlName]="'description'"
+        />
+      </mat-form-field>
+      <!-- Description ends -->
+
+      <!-- Destination Type starts -->
+      <mat-form-field class="w-full" appearance="outline">
+        <mat-label>Destination Type</mat-label>
+        <mat-select formControlName="destination_type">
+          <mat-option
+            *ngFor="let DestinationType of DestinationTypes"
+            [value]="DestinationType"
+            >{{DestinationType}}</mat-option
+          >
+        </mat-select>
+      </mat-form-field>
+      <!-- Destination Type ends -->
+
+      <!-- Params -->
+      <div class="border-[1px] border-slate-200 rounded-md py-6 px-4" formArrayName="paramsArray">
+        <p>Params: </p>
+        <div class="flex gap-2 items-baseline" *ngFor="let param of paramsArray.controls; let i=index" [formGroup]="param">
+          <!-- Key Type starts -->
+          <mat-form-field class="w-full" appearance="outline">
+            <mat-label>Key</mat-label>
+            <input
+              type="text"
+              placeholder=""
+              matInput
+              [formControlName]="'key'"
+            />
+          </mat-form-field>
+          <!-- Key Type ends -->
+          <!-- value Type starts -->
+          <mat-form-field class="w-full" appearance="outline">
+            <mat-label>Value</mat-label>
+            <input
+              type="text"
+              placeholder=""
+              matInput
+              [formControlName]="'value'"
+            />
+          </mat-form-field>
+          <mat-icon (click)="deleteParam(i)">delete_outline</mat-icon>
+          <!-- value Type ends -->
+        </div>
+        <button
+
+        class="w-full border-dotted border-4 py-2 px-6 rounded-md text-md"
+        (click)="addParams()"
+      >
+        Add Params
+      </button> 
+    </div>
+      <!-- Params -->
+      <!-- Redirect to install page -->
+      <div
+        class="w-full flex justify-between items-center border-[1px] my-4 border-solid rounded-md py-4 px-6"
+      >
+        <mat-slide-toggle
+          class="w-full flex justify-between items-center"
+          labelPosition="before"
+          formControlName="redirect_install"
+        >
+          Redirect to App/Play Store if app not Installed?
+        </mat-slide-toggle>
+      </div>
+      <!-- Redirect to install page -->
+    </form>
+    <!-- <button
+
+      class="bg-[#033443] disabled:bg-slate-400 text-white py-2 px-6 rounded-md text-md"
+      (click)="loader = !loader"
+    >
+      Submit
+    </button> -->
+    <button
+      [disabled]="form.invalid || loader"
+      class="bg-[#033443] disabled:bg-slate-400 text-white py-2 px-6 rounded-md text-md"
+      (click)="insert()"
+    >
+      <span *ngIf="!loader">Insert</span>
+      <!-- <div class="flex justify-center gap-4 items-center"> -->
+      
+        <mat-spinner *ngIf="loader" diameter="20"></mat-spinner>
+      <!-- </div> -->
+    </button>
+  </div>
+</div>
